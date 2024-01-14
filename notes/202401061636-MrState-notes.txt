@@ -1,0 +1,14 @@
+{2}  -*-  mode: text; fill-column: 50;  -*-
+[0:
+
+Sat Jan  6 16:36:32 2024 OK, trying to pull out
+the priority queue stuff and make it more
+'reusable'..
+[1:
+
+Sun Jan 14 04:13:23 2024 Well, have been using
+this for a week apparently.. Guess I ought to
+commit it..
+
+:1]
+:0]
