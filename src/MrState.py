@@ -12,18 +12,21 @@ import EventQueue
 import Config
 
 class MrState:
-    def __init__(self,name):
+    def __init__(self,name,cfgFile = None):
         self.name = name
         print("__mrstate__",self.name)
         self.EQ = EventQueue.EventQueue(self,"EQ")
-        self.configPath = self.findConfigOrDie()
+        self.configPath = self.findConfigOrDie(cfgFile)
         self.loadConfig()
-        sda = self.getRequiredSection('MrState');
+
         self.bindirs = []       # paths in search order
         self.bindirmap = {}     # path->True
-        if 'bindirs' in sda:
-            for id in sda['bindirs']:
-                self.addBinDir(id)
+        sda = self.getOptionalSection('MrState');
+        if sda != None:
+            if 'bindirs' in sda:
+                for id in sda['bindirs']:
+                    self.addBinDir(id)
+
         if len(self.bindirs) == 0:
             self.addBinDir("")  # default path 
 
@@ -46,8 +49,10 @@ class MrState:
                 return rprog
         return None
 
-    def findConfigOrDie(self):
+    def findConfigOrDie(self,optPath):
         paths = []
+        if optPath != None:
+            paths.append(optPath)
         e = os.environ
         ekey ='MrStateCONFIGPATH'
         if ekey in e:           # First try environmental variable
