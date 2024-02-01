@@ -94,6 +94,12 @@ class MrState:
     def getOptionalSection(self,name):
         return self.config.getOptionalSection(name)
 
+    def getInitializedSection(self,name,value):
+        return self.config.getInitializedSection(name,value)
+
+    def getConfig(self):
+        return self.config
+
     def loadConfig(self):
         path = self.configPath
         if os.path.isfile(path):
@@ -101,8 +107,6 @@ class MrState:
         else:
             self.die(f"Can't load {path}")
         self.config.load()
-        self.config.print()
-
 
     def mainLoop(self):
         self.EQ.mainLoop()
